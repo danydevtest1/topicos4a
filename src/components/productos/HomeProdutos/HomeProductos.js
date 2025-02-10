@@ -6,7 +6,7 @@ import { Datos } from "../../../utils/bd";
 import "./HomeProducto.scss";
 
 export function HomeProductos() {
-  console.log(Datos);
+  //console.log(Datos);
 
   const fondo = {
     tema: {
@@ -25,9 +25,9 @@ export function HomeProductos() {
         <Tab eventKey="home" title="Lista de Productos">
           <Row xs={1} sm={2} md={3} lg={4}>
             {Datos.map((producto, index) => (
-              <Col>
+              <Col key={index}>
                 <div className="p-2">
-                  <ItemProductos key={producto.nombre} producto={producto}/>
+                  <ItemProductos producto={producto}/>
                 </div>
               </Col>
             ))}

@@ -1,18 +1,19 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import "./ItemProductos.scss";
 
-export function ItemProductos({producto}) {
+export function ItemProductos({ producto }) {
   return (
-    
-      <Card>
-        <Card.Img variant="top" src={producto.imagen} style={{width:"200px", height:"70%"}} />
-        <Card.Body>
-          <Card.Title>{producto.nombre}</Card.Title>
-          <Card.Text>
-            {producto.description}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-  
+    <Card>
+      <Card.Img variant="top" src={producto.imagen} />
+      <Card.Body className="body">
+        <Card.Title className="body__title">
+          {producto.nombre}
+        </Card.Title>
+        <Card.Text className="body__text">
+          {producto.description}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 }

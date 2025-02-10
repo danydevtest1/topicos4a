@@ -1,5 +1,6 @@
 export const Datos=[
     {
+        id:"4",
         nombre:"Coca cola",
         precio:18,
         cantidad:20,
@@ -8,6 +9,7 @@ export const Datos=[
          description:"Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño."
     },
     {
+        id:"4",
         nombre:"Chokis",
         precio:9,
         cantidad:15,
@@ -16,6 +18,7 @@ export const Datos=[
          description:"Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño."
     },
     {
+        id:"4",
         nombre:"Chetos",
         precio:14,
         cantidad:25,
@@ -24,6 +27,7 @@ export const Datos=[
          description:"Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño."
     },
     {
+        id:"4",
         nombre:"Rufles",
         precio:14,
         cantidad:25,
