@@ -10,7 +10,7 @@ export function Menu() {
       <Nav className="me-auto">
         <Link to="/">Home</Link>
         <Link to="/producto">Productos</Link>
-        <Nav.Link href="#pricing">Pricing</Nav.Link>
+        <Link to="/formproductos">Gestion de productos</Link>
       </Nav>
     </Container>
   </Navbar>
