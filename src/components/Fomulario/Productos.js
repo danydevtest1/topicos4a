@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 import {useFormik} from "formik";
 import { Button, Form, Row, Col, InputGroup } from "react-bootstrap";
 import {initialValues,validationSchema} from "./Productos.form";
+import { ListProductos } from "../ListProductos";
+import {Producto} from "../../api";
+//import axios from "axios";
+//import Axios from "../../services/Axios";
 
+
+const ctrProducto=new Producto();
 
 export function Productos() {
  /*  const Datos = {
@@ -13,17 +19,19 @@ export function Productos() {
     imagen: "",
   }; */
 
-  const [valores, setValores] = useState();
+ /*  const [valores, setValores] = useState();
   const [informacion, setInformacion] = useState([]);
-
+ */
   const formik= useFormik({
     initialValues:initialValues(),
     validationSchema:validationSchema(),
-    onSubmit:(formValue)=>{
-      console.log(formValue);
+    validateOnChange:false,
+    onSubmit:async(formValue)=>{
+      const response=ctrProducto.createProduct(formValue);
+      console.log(response);
       
-    }
-  })
+      
+}})
 /* 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +42,9 @@ export function Productos() {
     e.preventDefault();
     console.log(valores);
   }; */
+
+
+  
 
   return (
     <div className="p-4">
@@ -58,6 +69,7 @@ export function Productos() {
               type="number"
               name="precio"
               placeholder="Precio"
+              value={formik.values.precio}
               onChange={formik.handleChange}
             />
           </Form.Group>
@@ -68,6 +80,7 @@ export function Productos() {
                 type="number"
                 name="cantidad"
                 placeholder="Cantidad"
+                value={formik.values.cantidad}
                 onChange={formik.handleChange}
               />
             </InputGroup>
@@ -78,7 +91,9 @@ export function Productos() {
               type="text"
               name="unidad"
               placeholder="Unidad"
+              value={formik.values.unidad}
               onChange={formik.handleChange}
+              error={formik.errors.unidad}
             />
           </Form.Group>
           <Form.Group as={Col} md="3">
@@ -87,6 +102,7 @@ export function Productos() {
               type="file"
               required
               name="imagen"
+              value={formik.values.imagen}
               onChange={formik.handleChange}
             />
           </Form.Group>
@@ -94,6 +110,10 @@ export function Productos() {
 
         <Button type="submit">Enviar</Button>
       </Form>
+
+      <Row>
+        <ListProductos/>
+      </Row>
     </div>
   );
 }

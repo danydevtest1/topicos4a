@@ -12,10 +12,10 @@ export function initialValues(){
 
 export function validationSchema(){
     return YUP.object({
-        nombre:YUP.string().required(true),
-        precio: YUP.number().required(true),
-        cantidad: YUP.number().required(true),
-        unidad: YUP.number(),
+        nombre:YUP.string(),
+        precio: YUP.number(),
+        cantidad: YUP.number(),
+        unidad: YUP.string(),
         imagen: YUP.string()
     })
 }
