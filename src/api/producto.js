@@ -50,5 +50,11 @@ export class Producto {
     }
   }
 
+  async buscaProducto(){
+    const url=`${this.baseApi}/${ENV.API_ROUTES.GETPRODUCTO}`;
+    const buscPro= await Axios.get(url);
+    return buscPro.data;
+  }
+
 
 }

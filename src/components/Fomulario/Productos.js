@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback , useEffect} from "react";
 import { useFormik } from "formik";
 import { useDropzone } from "react-dropzone";
 import { Button, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
@@ -7,12 +7,13 @@ import {imagenes} from "../../assets";
 import { Producto } from "../../api";
 
 import "./Productos.scss";
+import { ListProductos } from "../ListProductos/ListProductos";
 
 const ctrProducto = new Producto();
 
 export function Productos() {
   const formulario = useRef();
-  // const [productosData, setProductosData] = useState([]);
+   const [productosData, setProductosData] = useState([]);
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -20,10 +21,17 @@ export function Productos() {
     onSubmit: async (formValue) => {
       await ctrProducto.createProduct(formValue);
       //console.log(formValue);
-
+      buscarProductos();
       //formulario.current.reset();
     },
   });
+
+  const buscarProductos=async()=>{
+    const prod= await ctrProducto.buscaProducto();
+    setProductosData(prod);
+    console.log(prod);
+    
+  }
 
   // const busca = await Axios.get(urlEnv);
 
@@ -54,10 +62,16 @@ export function Productos() {
 
   const getImagen=()=>{
     if(formik.values.imagenFile){
+
       return formik.values.imagep
     }
     return imagenes.noAvatar
   }
+
+  useEffect(() => {
+    buscarProductos();
+  }, [])
+  
 
   return (
     <div className="p-4">
@@ -120,7 +134,9 @@ export function Productos() {
         <Button type="submit">Enviar</Button>
       </Form>
 
-      <Row></Row>
+      <Row>
+        <ListProductos productos={productosData}/>
+      </Row>
     </div>
   );
 }
