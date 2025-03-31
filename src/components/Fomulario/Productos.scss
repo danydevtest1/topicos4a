@@ -1,0 +1,16 @@
+.form-imagen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    size: 20px;
+
+    > img{
+        margin: 0;
+        border: 2px dashed #534f4f;
+        padding: 5px;
+        cursor: pointer;
+        width: 200px;
+        height: 200px;
+    }
+}

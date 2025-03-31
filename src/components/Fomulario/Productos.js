@@ -1,50 +1,63 @@
-//import React, { useState } from "react";
-import {useFormik} from "formik";
-import { Button, Form, Row, Col, InputGroup } from "react-bootstrap";
-import {initialValues,validationSchema} from "./Productos.form";
-import { ListProductos } from "../ListProductos";
-import {Producto} from "../../api";
-//import axios from "axios";
-//import Axios from "../../services/Axios";
+import React, { useState, useRef, useCallback } from "react";
+import { useFormik } from "formik";
+import { useDropzone } from "react-dropzone";
+import { Button, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
+import { initialValues, validationSchema } from "./Productos.form";
+import {imagenes} from "../../assets";
+import { Producto } from "../../api";
 
+import "./Productos.scss";
 
-const ctrProducto=new Producto();
+const ctrProducto = new Producto();
 
 export function Productos() {
- /*  const Datos = {
-    nombre: "",
-    precio: "",
-    cantidad: "",
-    unidad: "",
-    imagen: "",
-  }; */
+  const formulario = useRef();
+  // const [productosData, setProductosData] = useState([]);
+  const formik = useFormik({
+    initialValues: initialValues(),
+    validationSchema: validationSchema(),
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      await ctrProducto.createProduct(formValue);
+      //console.log(formValue);
 
- /*  const [valores, setValores] = useState();
-  const [informacion, setInformacion] = useState([]);
- */
-  const formik= useFormik({
-    initialValues:initialValues(),
-    validationSchema:validationSchema(),
-    validateOnChange:false,
-    onSubmit:async(formValue)=>{
-      const response=ctrProducto.createProduct(formValue);
-      console.log(response);
-      
-      
-}})
-/* 
+      //formulario.current.reset();
+    },
+  });
+
+  // const busca = await Axios.get(urlEnv);
+
+  /* const listItems=productosData.map((datos)=>(
+    <h1>{datos.nombre}</h1>
+  )) */
+  /* 
   const onChange = (e) => {
     const { name, value } = e.target;
     setValores({ ...valores, [name]: value });
   }; */
 
- /*  const enviarDatos = (e) => {
+  /*  const enviarDatos = (e) => {
     e.preventDefault();
     console.log(valores);
   }; */
 
+  const onDrop = useCallback((acceptedFiles) => {
+    const file=acceptedFiles[0];
+   formik.setFieldValue("imagep", URL.createObjectURL(file));
+   formik.setFieldValue("imagenFile",file);
+  });
 
-  
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/jpeg, image/png, image/gif",
+    onDrop,
+  });
+
+  const getImagen=()=>{
+    if(formik.values.imagenFile){
+      return formik.values.imagep
+    }
+    return imagenes.noAvatar
+  }
 
   return (
     <div className="p-4">
@@ -96,24 +109,18 @@ export function Productos() {
               error={formik.errors.unidad}
             />
           </Form.Group>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Imagen</Form.Label>
-            <Form.Control
-              type="file"
-              required
-              name="imagen"
-              value={formik.values.imagen}
-              onChange={formik.handleChange}
-            />
-          </Form.Group>
+        </Row>
+        <Row>
+          <div  className="form-imagen" {...getRootProps()}>
+            <input {...getInputProps()} />
+           <Image src={getImagen()} roundedCircle/>
+          </div>
         </Row>
 
         <Button type="submit">Enviar</Button>
       </Form>
 
-      <Row>
-        <ListProductos/>
-      </Row>
+      <Row></Row>
     </div>
   );
 }

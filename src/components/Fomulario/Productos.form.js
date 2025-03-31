@@ -6,7 +6,8 @@ export function initialValues(){
         precio: "",
         cantidad: "",
         unidad: "",
-        imagen: "",
+        imagep:"",
+        imagenFile:null
     }
 }
 
