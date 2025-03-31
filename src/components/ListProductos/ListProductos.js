@@ -27,7 +27,7 @@ export function ListProductos(props) {
             <td>{producto.precio}</td>
             <td>{producto.cantidad}</td>
             <td>{producto.unidad}</td>
-            <td><Image src={urlImagen+producto.imagen}/></td>
+            <td><Image src={`${urlImagen}/${producto.imagep}`} style={{width:"50px", height:"50px"}} roundedCircle/></td>
             <td>
               <Button variant="success">Editar</Button>
             </td>
