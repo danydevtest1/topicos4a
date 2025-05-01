@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback , useEffect} from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDropzone } from "react-dropzone";
 import { Button, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import { initialValues, validationSchema } from "./Productos.form";
-import {imagenes} from "../../assets";
+import { imagenes } from "../../assets";
 import { Producto } from "../../api";
 
 import "./Productos.scss";
@@ -13,7 +13,7 @@ const ctrProducto = new Producto();
 
 export function Productos() {
   const formulario = useRef();
-   const [productosData, setProductosData] = useState([]);
+  const [productosData, setProductosData] = useState([]);
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -26,12 +26,11 @@ export function Productos() {
     },
   });
 
-  const buscarProductos=async()=>{
-    const prod= await ctrProducto.buscaProducto();
+  const buscarProductos = async () => {
+    const prod = await ctrProducto.buscaProducto();
     setProductosData(prod);
     console.log(prod);
-    
-  }
+  };
 
   // const busca = await Axios.get(urlEnv);
 
@@ -50,9 +49,9 @@ export function Productos() {
   }; */
 
   const onDrop = useCallback((acceptedFiles) => {
-    const file=acceptedFiles[0];
-   formik.setFieldValue("imagep", URL.createObjectURL(file));
-   formik.setFieldValue("imagenFile",file);
+    const file = acceptedFiles[0];
+    formik.setFieldValue("imagep", URL.createObjectURL(file));
+    formik.setFieldValue("imagenFile", file);
   });
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -60,18 +59,21 @@ export function Productos() {
     onDrop,
   });
 
-  const getImagen=()=>{
-    if(formik.values.imagenFile){
-
-      return formik.values.imagep
+  const getImagen = () => {
+    if (formik.values.imagenFile) {
+      return formik.values.imagep;
     }
-    return imagenes.noAvatar
-  }
+    return imagenes.noAvatar;
+  };
+
+  const eliminarProducto = async (id) => {
+    await ctrProducto.delProducto(id);
+    buscarProductos();
+  };
 
   useEffect(() => {
     buscarProductos();
-  }, [])
-  
+  }, []);
 
   return (
     <div className="p-4">
@@ -125,9 +127,9 @@ export function Productos() {
           </Form.Group>
         </Row>
         <Row>
-          <div  className="form-imagen" {...getRootProps()}>
+          <div className="form-imagen" {...getRootProps()}>
             <input {...getInputProps()} />
-           <Image src={getImagen()} roundedCircle/>
+            <Image src={getImagen()} roundedCircle />
           </div>
         </Row>
 
@@ -135,7 +137,7 @@ export function Productos() {
       </Form>
 
       <Row>
-        <ListProductos productos={productosData}/>
+        <ListProductos productos={productosData} eliminar={eliminarProducto} />
       </Row>
     </div>
   );

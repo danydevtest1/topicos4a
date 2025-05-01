@@ -9,6 +9,6 @@ export const ENV={
     API_ROUTES:{
         CREATEPRODUCTO:"/createproduct",
         GETPRODUCTO:"/getproducto",
-        DELPRODUCTO:"delproducto"
+        DELPRODUCTO:"/delproducto",
     }
 }

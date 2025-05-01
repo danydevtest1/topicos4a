@@ -5,7 +5,7 @@ import { ENV } from "../../utils";
 const urlImagen=ENV.BASE_PATH;
 
 export function ListProductos(props) {
-  const { productos } = props;
+  const { productos, eliminar } = props;
 
   return (
     <Table striped bordered hover>
@@ -32,7 +32,7 @@ export function ListProductos(props) {
               <Button variant="success">Editar</Button>
             </td>
             <td>
-              <Button variant="danger">Eliminar</Button>
+              <Button variant="danger" onClick={()=>eliminar(producto._id)}>Eliminar</Button>
             </td>
           </tr>
         ))}
