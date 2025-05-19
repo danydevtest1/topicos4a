@@ -1,12 +1,12 @@
 import * as YUP from "yup";
 
-export function initialValues(productosData){
+export function initialValues(producto){
     return{
-        nombre: "",
-        precio:  "",
-        cantidad:"",
-        unidad:"",
-        imagep: "",
+        nombre: producto?.nombre || "",
+        precio: producto?.precio || "",
+        cantidad: producto?.cantidad || "",
+        unidad: producto?.unidad ||"",
+        imagep: producto?.imagep ||"",
         imagenFile:null
     }
 }

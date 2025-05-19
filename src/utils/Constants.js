@@ -10,5 +10,6 @@ export const ENV={
         CREATEPRODUCTO:"/createproduct",
         GETPRODUCTO:"/getproducto",
         DELPRODUCTO:"/delproducto",
+        EDITPRODUCTO:"/updateproducto"
     }
 }

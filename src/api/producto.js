@@ -19,12 +19,10 @@ export class Producto {
         formData.append("imagep", data.imagenFile);
       }
 
-      const url= `${this.baseApi}/${ENV.API_ROUTES.CREATEPRODUCTO}`
+      const url = `${this.baseApi}/${ENV.API_ROUTES.CREATEPRODUCTO}`;
 
-      const response= await Axios.post(url,formData);
-      if(response.status===200) return response;
-
-     
+      const response = await Axios.post(url, formData);
+      if (response.status === 200) return response;
     } catch (error) {
       throw error;
     }
@@ -36,11 +34,35 @@ export class Producto {
     return buscPro.data;
   }
 
-  async delProducto(id){
+  async delProducto(id) {
     try {
       const url = `${this.baseApi}/${ENV.API_ROUTES.DELPRODUCTO}/${id}`;
-      const response=await Axios.delete(url);
-      if(response.status===200) return response;
+      const response = await Axios.delete(url);
+      if (response.status === 200) return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateProduct(dataProducto, id) {
+    try {
+      // console.log(data);
+      const data = dataProducto;
+      const formData = new FormData();
+
+      Object.keys(data).forEach((key) => {
+        // console.log(key);
+        formData.append(key, data[key]);
+      });
+
+      if (data.imagenFile) {
+        formData.append("imagep", data.imagenFile);
+      }
+
+      const url = `${this.baseApi}/${ENV.API_ROUTES.EDITPRODUCTO}/${id}`;
+
+      const response = await Axios.patch(url, formData);
+      if (response.status === 200) return response;
     } catch (error) {
       throw error;
     }

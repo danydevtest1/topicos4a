@@ -8,18 +8,24 @@ import { Producto } from "../../api";
 
 const ctrProducto = new Producto();
 
-export  function FormGuardarEdit() {
+export  function FormGuardarEdit({onReload,close, Reload, producto, closeModal}) {
    
 
       const formik = useFormik({
-        initialValues: initialValues(),
+        initialValues: initialValues(producto),
         validationSchema: validationSchema(),
         validateOnChange: false,
         onSubmit: async (formValue) => {
-          await ctrProducto.createProduct(formValue);
-          //console.log(formValue);
+          if(producto){
+            await ctrProducto.updateProduct(producto._id,formValue);
+            Reload();
+            closeModal();
+          }else{
+            await ctrProducto.createProduct(formValue);
+            onReload();
+            close();
+          }
          
-          //formulario.current.reset();
         },
       });
     
@@ -104,7 +110,9 @@ export  function FormGuardarEdit() {
           </div>
         </Row>
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">
+          {!producto ? "Guardar":"Editar"}
+        </Button>
       </Form>
     </div>
   )

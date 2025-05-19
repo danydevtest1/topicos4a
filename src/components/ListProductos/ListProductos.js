@@ -1,13 +1,19 @@
-import React from "react";
-import { Table, Button, Image } from "react-bootstrap";
-import { ENV } from "../../utils";
 
-const urlImagen=ENV.BASE_PATH;
+import { Table } from "react-bootstrap";
+//import { ENV } from "../../utils";
+//import { FormGuardarEdit } from "../Fomulario";
+import { Filas } from "./Filas";
+
+//const urlImagen=ENV.BASE_PATH;
 
 export function ListProductos(props) {
-  const { productos, eliminar } = props;
+  const { productos, eliminar, onReload } = props;
+  
+
+  
 
   return (
+    <>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -21,22 +27,13 @@ export function ListProductos(props) {
       </thead>
       <tbody>
         {productos.map((producto, index) => (
-          <tr>
-            <td>{index+1}</td>
-            <td>{producto.nombre}</td>
-            <td>{producto.precio}</td>
-            <td>{producto.cantidad}</td>
-            <td>{producto.unidad}</td>
-            <td><Image src={`${urlImagen}/${producto.imagep}`} style={{width:"50px", height:"50px"}} roundedCircle/></td>
-            <td>
-              <Button variant="success">Editar</Button>
-            </td>
-            <td>
-              <Button variant="danger" onClick={()=>eliminar(producto._id)}>Eliminar</Button>
-            </td>
-          </tr>
+          
+          <Filas index={index} producto={producto} eliminar={eliminar} onReload={onReload}/>
         ))}
+       
       </tbody>
     </Table>
+   
+    </>
   );
 }
