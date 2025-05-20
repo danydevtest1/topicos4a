@@ -5,6 +5,7 @@ import { Button, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import { initialValues, validationSchema } from "./Productos.form";
 import { imagenes } from "../../assets";
 import { Producto } from "../../api";
+import {ENV} from "../../utils";
 
 const ctrProducto = new Producto();
 
@@ -47,6 +48,8 @@ export  function FormGuardarEdit({onReload,close, Reload, producto, closeModal})
       const getImagen = () => {
         if (formik.values.imagenFile) {
           return formik.values.imagep;
+        }else if (formik.values.imagep){
+          return `${ENV.BASE_PATH}/${formik.values.imagep}`;
         }
         return imagenes.noAvatar;
       };
